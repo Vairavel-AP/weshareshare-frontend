@@ -4,37 +4,39 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>WEShare — Welcome</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* minimal inline styles for landing page */
+    :root{--accent:#4f46e5;--muted:#6b7280;font-family:Inter,system-ui,Arial}
+    body{margin:0;background:#f7fafc;color:#111827;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;padding:36px;border-radius:12px;box-shadow:0 8px 30px rgba(16,24,40,0.08);text-align:center;max-width:680px}
+    .logo{color:var(--accent);font-size:42px;margin:0}
+    .lead{margin:10px 0 18px;color:var(--muted)}
+    .btn{padding:10px 16px;border-radius:8px;border:0;cursor:pointer}
+    .primary{background:var(--accent);color:#fff}
+    .ghost{background:transparent;border:1px solid #e6e9ef;margin-left:10px}
+    footer{position:fixed;bottom:12px;left:0;right:0;text-align:center;color:#9ca3af;font-size:13px}
+  </style>
 </head>
-<body class="landing-page">
-  <main class="container center-hero">
+<body>
+  <div class="card">
     <h1 class="logo">WEShare</h1>
-    <p class="lead">A Serverless Photo Sharing Experience</p>
-    <p class="muted">Share your favorite moments securely — powered by AWS Serverless.</p>
+    <p class="lead">A Serverless Photo Sharing Experience — sign in to continue.</p>
 
-    <div style="margin-top:18px;">
+    <div>
       <button id="signin-btn" class="btn primary">Sign In / Sign Up</button>
-      <a href="home.html" class="btn ghost" style="margin-left:8px">View Feed (demo)</a>
+      <a class="btn ghost" href="home.html">View Feed (demo)</a>
     </div>
-  </main>
+  </div>
 
-  <footer class="footer">
-    <small>© 2025 WEShare</small>
-  </footer>
+  <footer>© 2025 WEShare</footer>
 
+  <!-- auth + UI script (app.js provides signIn()) -->
+  <script src="app.js"></script>
   <script>
-    // Cognito Hosted UI values (filled from what you provided)
-    const COGNITO_DOMAIN = "https://ap-south-1vmdpl6mvh.auth.ap-south-1.amazoncognito.com";
-    const COGNITO_CLIENT_ID = "6tmjg5udk8sgqrbj1lh5s1e8av";
-
-    // Exact redirect URL Cognito should use after successful sign-in
-    const REDIRECT_URI = "https://vairavel-ap.github.io/weshareshare-frontend/home.html";
-
-    document.getElementById("signin-btn").addEventListener("click", () => {
-      // Use hosted UI login endpoint (user will be forwarded to REDIRECT_URI with ?code=...)
-      const scope = encodeURIComponent("openid profile email");
-      const url = `${COGNITO_DOMAIN}/login?response_type=code&client_id=${encodeURIComponent(COGNITO_CLIENT_ID)}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${scope}`;
-      window.location.href = url;
+    // wire the landing page sign-in button
+    document.getElementById('signin-btn').addEventListener('click', () => {
+      if (typeof signIn === 'function') signIn();
+      else alert('Auth script not loaded.');
     });
   </script>
 </body>

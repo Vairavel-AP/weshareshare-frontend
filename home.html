@@ -4,52 +4,50 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>WEShare — Home</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root{--accent:#4f46e5;--muted:#6b7280;font-family:Inter,system-ui,Arial}
+    body{margin:0;background:#f7fafc;color:#111827;min-height:100vh}
+    header{background:#fff;box-shadow:0 1px 0 rgba(0,0,0,0.04);padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
+    .brand{font-weight:700;color:var(--accent)}
+    .actions{display:flex;gap:10px;align-items:center}
+    .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
+    .ghost{background:transparent;border:1px solid #e6e9ef}
+    main{max-width:980px;margin:28px auto;padding:0 20px}
+    .hero{margin-bottom:18px}
+    .greet{color:var(--muted)}
+    .feed-list{display:flex;flex-direction:column;gap:20px}
+    .post{background:#fff;border-radius:12px;padding:16px;box-shadow:0 6px 20px rgba(16,24,40,0.06)}
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">WEShare</div>
-      <div class="header-actions">
-        <button id="open-upload" class="btn post-btn">Post</button>
-        <span id="greeting" class="greeting">Hello —</span>
-        <button id="signout-btn" class="btn ghost">Sign Out</button>
-      </div>
+  <header>
+    <div class="brand">WEShare</div>
+    <div class="actions">
+      <div id="greeting" class="greet">Hello —</div>
+      <button id="signout-btn" class="btn ghost">Sign Out</button>
     </div>
   </header>
 
-  <main class="container">
+  <main>
     <section class="hero">
-      <h1>Global Feed</h1>
-      <p class="subtitle">See the latest photos shared by the community.</p>
+      <h2>Global Feed</h2>
+      <p class="greet">(You are signed in via Cognito — tokens are stored in localStorage.)</p>
     </section>
 
-    <section id="feed" class="feed-list"></section>
+    <section id="feed" class="feed-list">
+      <!-- sample posts will render here -->
+    </section>
   </main>
 
-  <!-- Upload Modal -->
-  <div id="upload-modal" class="modal hidden">
-    <div class="modal-panel">
-      <div class="modal-header">
-        <h3>Create Post</h3>
-        <button id="close-upload" class="btn icon">✕</button>
-      </div>
-
-      <form id="upload-form" class="upload-form">
-        <label>File<input type="file" id="file-input" accept="image/*,video/*"></label>
-        <label>Caption<textarea id="caption-input" rows="3" placeholder="Write a caption..."></textarea></label>
-
-        <div class="modal-actions">
-          <button type="button" id="cancel-upload" class="btn ghost">Cancel</button>
-          <button type="submit" class="btn primary">Post</button>
-        </div>
-        <div id="upload-status" class="status"></div>
-      </form>
-    </div>
-  </div>
-
-  <button id="fab" class="fab">＋</button>
-
   <script src="app.js"></script>
+  <script>
+    // wire sign out button
+    document.getElementById('signout-btn').addEventListener('click', () => {
+      if (typeof signOut === 'function') signOut();
+      else alert('Auth script not loaded.');
+    });
+
+    // small helper to update UI with profile if signed in (app.js calls updateAuthUI on load)
+  </script>
 </body>
 </html>

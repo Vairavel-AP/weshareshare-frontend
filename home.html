@@ -31,23 +31,21 @@
   <main>
     <section class="hero">
       <h2>Global Feed</h2>
-      <p class="greet">(You are signed in via Cognito — tokens are stored in localStorage.)</p>
+      <p class="greet">(Signed in via Cognito implicit flow — tokens stored in localStorage.)</p>
     </section>
 
-    <section id="feed" class="feed-list">
-      <!-- sample posts will render here -->
-    </section>
+    <section id="feed" class="feed-list"></section>
   </main>
 
   <script src="app.js"></script>
   <script>
-    // wire sign out button
+    // sign out
     document.getElementById('signout-btn').addEventListener('click', () => {
       if (typeof signOut === 'function') signOut();
       else alert('Auth script not loaded.');
     });
 
-    // small helper to update UI with profile if signed in (app.js calls updateAuthUI on load)
+    // on load, app.js will parse tokens and update UI
   </script>
 </body>
 </html>

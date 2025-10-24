@@ -1,33 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEShare - Welcome</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WEShare — Welcome</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="landing-page">
-  <header class="hero-header">
+  <main class="container center-hero">
     <h1 class="logo">WEShare</h1>
-    <p class="tagline">A Serverless Photo Sharing Experience</p>
-    <p class="subtext">Share your favorite moments securely — powered by AWS Serverless.</p>
-    <button id="signin-btn" class="btn primary">Sign In / Sign Up</button>
-  </header>
+    <p class="lead">A Serverless Photo Sharing Experience</p>
+    <p class="muted">Share your favorite moments securely — powered by AWS Serverless.</p>
+
+    <div style="margin-top:18px;">
+      <button id="signin-btn" class="btn primary">Sign In / Sign Up</button>
+      <a href="home.html" class="btn ghost" style="margin-left:8px">View Feed (demo)</a>
+    </div>
+  </main>
 
   <footer class="footer">
-    <p>© 2025 WEShare | Built with AWS Serverless</p>
+    <small>© 2025 WEShare</small>
   </footer>
 
   <script>
-    // Simple redirect to Cognito Hosted UI (replace domain & client)
-    const COGNITO_DOMAIN = "https://YOUR_DOMAIN.auth.ap-south-1.amazoncognito.com";
-    const COGNITO_CLIENT_ID = "YOUR_CLIENT_ID";
-    const REDIRECT_URI = window.location.origin + "/weshareshare-frontend/home.html";
+    // Cognito Hosted UI values (filled from what you provided)
+    const COGNITO_DOMAIN = "https://ap-south-1vmdpl6mvh.auth.ap-south-1.amazoncognito.com";
+    const COGNITO_CLIENT_ID = "6tmjg5udk8sgqrbj1lh5s1e8av";
+
+    // Exact redirect URL Cognito should use after successful sign-in
+    const REDIRECT_URI = "https://vairavel-ap.github.io/weshareshare-frontend/home.html";
 
     document.getElementById("signin-btn").addEventListener("click", () => {
-      const scope = "openid+profile+email";
-      const authUrl = `${COGNITO_DOMAIN}/login?response_type=code&client_id=${COGNITO_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${scope}`;
-      window.location.href = authUrl;
+      // Use hosted UI login endpoint (user will be forwarded to REDIRECT_URI with ?code=...)
+      const scope = encodeURIComponent("openid profile email");
+      const url = `${COGNITO_DOMAIN}/login?response_type=code&client_id=${encodeURIComponent(COGNITO_CLIENT_ID)}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${scope}`;
+      window.location.href = url;
     });
   </script>
 </body>

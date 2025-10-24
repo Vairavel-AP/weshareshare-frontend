@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEShare - Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">WEShare</div>
+      <nav class="nav-links">
+        <a href="#">Feed</a>
+        <a href="#">Search Users</a>
+        <a href="#">Profile</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn post-btn" id="open-upload">Post</button>
+        <span class="greeting">Hello, <span id="username">User</span></span>
+        <button class="btn ghost" id="signout-btn">Sign Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Global Feed</h1>
+      <p class="subtitle">See the latest photos and videos shared by all users worldwide.</p>
+    </section>
+
+    <section id="feed" class="feed-list"></section>
+  </main>
+
+  <!-- Upload Modal -->
+  <div id="upload-modal" class="modal hidden">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3>Create Post</h3>
+        <button id="close-upload">✕</button>
+      </div>
+
+      <form id="upload-form">
+        <label>File<input type="file" id="file-input" accept="image/*,video/*"></label>
+        <label>Caption<textarea id="caption-input" rows="3"></textarea></label>
+        <div class="modal-actions">
+          <button type="button" id="cancel-upload" class="btn ghost">Cancel</button>
+          <button type="submit" class="btn primary">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <button id="fab" class="fab">＋</button>
+
+  <script src="app.js"></script>
+</body>
+</html>
